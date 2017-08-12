@@ -6,7 +6,6 @@ import (
 	"path"
 	"path/filepath"
 	"strings"
-	"time"
 )
 
 // An initialized read-only, in-ram instance of the wordnet database.
@@ -224,7 +223,6 @@ func New(dir string) (*Handle, error) {
 	}
 	byOffset := map[ix]*cluster{}
 	err := filepath.Walk(dir, func(filename string, info os.FileInfo, err error) error {
-		start := time.Now()
 		if err != nil || info.IsDir() {
 			return err
 		}
@@ -285,7 +283,6 @@ func New(dir string) (*Handle, error) {
 			}
 			return nil
 		})
-		fmt.Printf("%s in %s\n", filename, time.Since(start).String())
 		return err
 	})
 	if err != nil {
